@@ -1,13 +1,24 @@
 import React from "react";
+import Account from "./Account";
 
 export default () => {
   return (
     <div>
-      <div>
-        <h1>Account Overview</h1>
-        <div className="card">
-          <h5 className="card-title">Account 1</h5>
-        </div>
+      <div className="text-styles card">
+        <h1 className="well card-header  text-white bg-info">
+          Account Overview
+        </h1>
+        <ul className="list-group">
+          <li className="list-group-item">
+            <Account />
+          </li>
+          <li className="list-group-item">
+            <Account />
+          </li>
+          <li className="list-group-item">
+            <Account />
+          </li>
+        </ul>
       </div>
     </div>
   );

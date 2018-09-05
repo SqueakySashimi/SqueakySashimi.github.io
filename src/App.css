@@ -1,6 +1,10 @@
 @font-face {
-  font-family: "Fredoka One";
+  font-family: "Fredoka One", cursive;
   src: url("https://fonts.googleapis.com/css?family=Fredoka+One");
+}
+@font-face {
+  font-family: "Abel", cursive;
+  src: url("https://fonts.googleapis.com/css?family=Abel");
 }
 
 .App {
@@ -13,7 +17,24 @@
   color: black;
 }
 
+.text-styles {
+  font-family: "Abel";
+  color: #333333;
+}
+
 .img-size {
   height: 50px;
   width: 50px;
+}
+
+.barsets {
+  background-color: #5bc0de;
+}
+
+.flav {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #3a3a3a;
+  border-radius: 2px;
+  padding: 4px;
 }
