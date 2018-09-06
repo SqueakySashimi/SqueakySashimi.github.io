@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import fetchTransactions from "../../data/transactions";
 export default class Account extends Component {
   state = {
     account: {
@@ -9,7 +8,6 @@ export default class Account extends Component {
   };
   render() {
     const { account } = this.state;
-    fetchTransactions();
     return (
       <Link to={`/account/${account.id}`}>
         <div className="d-flex justify-content-between m-3">

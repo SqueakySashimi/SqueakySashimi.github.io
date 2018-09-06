@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -13,21 +15,22 @@ import Transactions from "./components/functional/Transactions/Transactions";
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div className="App">
-          <Header branding="Mocha Bank" />
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={Accounts} />
-              <Route exact path="/help" component={Help} />
-              <Route exact path="/balance" component={Balance} />
-              <Route path="/account/:id" component={Transactions} />
-              <Route function={NotFound} />
-            </Switch>
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <Header branding="Mocha Bank" />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={Accounts} />
+                <Route exact path="/help" component={Help} />
+                <Route exact path="/balance" component={Balance} />
+                <Route path="/account/:id" component={Transactions} />
+                <Route function={NotFound} />
+              </Switch>
+            </div>
           </div>
-          {React.cloneElement(this.props.children, this.props)}
-        </div>
-      </Router>
+        </Router>
+      </Provider>
     );
   }
 }
