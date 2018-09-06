@@ -25,6 +25,7 @@ class App extends Component {
               <Route function={NotFound} />
             </Switch>
           </div>
+          {React.cloneElement(this.props.children, this.props)}
         </div>
       </Router>
     );
