@@ -8,6 +8,7 @@ import Accounts from "./components/functional/Accounts";
 import Balance from "./components/functional/Balance";
 import Help from "./components/pages/Help";
 import NotFound from "./components/pages/NotFound";
+import Transactions from "./components/functional/Transactions/Transactions";
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
               <Route exact path="/" component={Accounts} />
               <Route exact path="/help" component={Help} />
               <Route exact path="/balance" component={Balance} />
+              <Route path="/account/:id" component={Transactions} />
               <Route function={NotFound} />
             </Switch>
           </div>
