@@ -1,15 +1,25 @@
-import { createStore } from "redux";
-
+import { createStore, applyMiddleware, compose } from "redux";
+import { createBrowserHistory } from "history";
+import { syncHistoryWithStore } from "react-router-redux";
 import rootReducer from "./reducers/index";
-import fetchTransactions from "./data/transactions";
-import fetchAccounts from "./data/accounts";
+import thunk from "redux-thunk";
 
-const defaultState = {
-  transactions: fetchTransactions(),
-  accounts: fetchAccounts()
-};
+const browserHistory = createBrowserHistory();
 
-const store = createStore(rootReducer, defaultState);
+const middleware = [thunk];
+
+const defaultState = {};
+
+const store = createStore(
+  rootReducer,
+  defaultState,
+  compose(
+    applyMiddleware(...middleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+);
+
+const newHistory = syncHistoryWithStore(browserHistory, store);
 
 export default store;
-export const initialState = defaultState;
+export const history = newHistory;

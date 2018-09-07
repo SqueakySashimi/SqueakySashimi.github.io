@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { history } from "./store";
 
 import Header from "./components/layout/Header";
 import Accounts from "./components/functional/Accounts";
@@ -16,7 +17,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
+        <Router history={history}>
           <div className="App">
             <Header branding="Mocha Bank" />
             <div className="container">

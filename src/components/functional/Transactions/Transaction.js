@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Transactions from "./Transactions";
 import PropTypes from "prop-types";
 
 class Transaction extends Component {
