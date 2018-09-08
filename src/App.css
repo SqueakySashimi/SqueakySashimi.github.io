@@ -6,7 +6,18 @@
   font-family: "Abel", cursive;
   src: url("https://fonts.googleapis.com/css?family=Abel");
 }
-
+.links:hover {
+  text-decoration: none;
+}
+.links:link {
+  color: #333333;
+}
+.links:active {
+  color: #000000;
+}
+.links:visited {
+  color: #333333;
+}
 .App {
   text-align: center;
 }

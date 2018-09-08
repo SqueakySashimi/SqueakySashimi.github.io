@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 
 class Transaction extends Component {
   state = {
-    showTransactionInfo: false
+    showTransactionInfo: false,
+    currency: "€"
   };
 
   onShowClick = e => {
@@ -11,7 +12,7 @@ class Transaction extends Component {
   };
 
   render() {
-    const { showTransactionInfo } = this.state;
+    const { currency, showTransactionInfo } = this.state;
     const { i } = this.props;
     const {
       from,
@@ -19,9 +20,9 @@ class Transaction extends Component {
       description,
       amount,
       date,
-      currency,
       debit
     } = this.props.transactions[i];
+    console.log(`(${i}) debit: ${debit} amount: ${amount}`);
     let fromToSwitch;
     let posNeg;
     if (from === undefined && to !== undefined) {
@@ -33,8 +34,8 @@ class Transaction extends Component {
       fromToSwitch = from;
       posNeg = "+";
     }
-    let amountDebitSwitch;
 
+    let amountDebitSwitch;
     if (amount === undefined && debit !== undefined) {
       amountDebitSwitch = debit;
     } else if (amount !== undefined && debit !== undefined) {
@@ -42,7 +43,8 @@ class Transaction extends Component {
     } else {
       amountDebitSwitch = amount;
     }
-
+    let niceDate = new Date(date);
+    let options = {};
     return (
       <div
         onClick={this.onShowClick}
@@ -51,11 +53,11 @@ class Transaction extends Component {
       >
         <div className="d-flex justify-content-between">
           <h5>{fromToSwitch}</h5>
-          <h5>
+          <h6>
             {posNeg}
             {currency}
-            {amount}
-          </h5>
+            {amountDebitSwitch}
+          </h6>
         </div>
         {showTransactionInfo ? (
           <ul className="list-group list-group-flush card-body">
@@ -63,7 +65,12 @@ class Transaction extends Component {
               <strong className="text-info">Description:</strong> {description}
             </li>
             <li className="text-left list-group-item">
-              <strong className="text-info">Transferred on:</strong> {date}
+              <strong className="text-info">Transferred on:</strong>{" "}
+              {niceDate.toLocaleDateString()}{" "}
+              {niceDate.toLocaleTimeString("nl-NL", {
+                hour: "2-digit",
+                minute: "2-digit"
+              })}
             </li>
           </ul>
         ) : null}
@@ -76,6 +83,7 @@ Transaction.propTypes = {
   from: PropTypes.string,
   description: PropTypes.string,
   amount: PropTypes.string,
-  date: PropTypes.string
+  date: PropTypes.string,
+  to: PropTypes.string
 };
 export default Transaction;
