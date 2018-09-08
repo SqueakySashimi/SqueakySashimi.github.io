@@ -3,12 +3,6 @@ import PropTypes from "prop-types";
 
 class Transaction extends Component {
   state = {
-    from: "Jos Haarbos",
-    description: "Voor de melk",
-    amount: "30.00",
-    currency: "€",
-    date: "30-4-2018",
-
     showTransactionInfo: false
   };
 
@@ -17,23 +11,48 @@ class Transaction extends Component {
   };
 
   render() {
+    const { showTransactionInfo } = this.state;
+    const { i } = this.props;
     const {
       from,
+      to,
       description,
       amount,
       date,
       currency,
-      showTransactionInfo
-    } = this.state;
+      debit
+    } = this.props.transactions[i];
+    let fromToSwitch;
+    let posNeg;
+    if (from === undefined && to !== undefined) {
+      fromToSwitch = to;
+      posNeg = "-";
+    } else if (from !== undefined && to !== undefined) {
+      console.log("Error, both from and to defined for this instance");
+    } else {
+      fromToSwitch = from;
+      posNeg = "+";
+    }
+    let amountDebitSwitch;
+
+    if (amount === undefined && debit !== undefined) {
+      amountDebitSwitch = debit;
+    } else if (amount !== undefined && debit !== undefined) {
+      console.log("Error, both amount and debit defined for this instance");
+    } else {
+      amountDebitSwitch = amount;
+    }
+
     return (
       <div
         onClick={this.onShowClick}
         style={{ cursor: "pointer" }}
-        className="card card-body mb-3"
+        className="card card-body"
       >
         <div className="d-flex justify-content-between">
-          <h5>{from}</h5>{" "}
+          <h5>{fromToSwitch}</h5>
           <h5>
+            {posNeg}
             {currency}
             {amount}
           </h5>

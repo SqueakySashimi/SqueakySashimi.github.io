@@ -1,7 +1,7 @@
 //reducer takes in the action and a copy of the current state
 import { GET_ACCOUNTS } from "../actions/types";
 const initialState = {
-  accounts: []
+  accounts: {}
 };
 
 export default function(state = initialState, action) {

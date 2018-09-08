@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import Transaction from "./Transaction";
-
+import { getTransactions } from "../../../actions/actions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 class Transactions extends Component {
+  componentDidMount() {
+    this.props.getTransactions();
+  }
   render() {
+    const { transactions } = this.props;
     return (
       <div>
         <div className="d-flex justify-content-end">
@@ -11,15 +17,32 @@ class Transactions extends Component {
           </button>
         </div>
         <div className=" card card-header">
-          <div> </div>
           <h2>
             <span className="text-info">Transaction</span> <span>Overview</span>
           </h2>
         </div>
-
-        <Transaction className="card card-body" />
+        {transactions.map((transaction, i) => (
+          <Transaction
+            {...this.props}
+            key={i}
+            i={i}
+            className="card card-body"
+          />
+        ))}
       </div>
     );
   }
 }
-export default Transactions;
+Transactions.propTypes = {
+  //accounts: PropTypes.object.isRequired,
+  getTransactions: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  transactions: state.transactions.transactions
+});
+
+export default connect(
+  mapStateToProps,
+  { getTransactions }
+)(Transactions);
