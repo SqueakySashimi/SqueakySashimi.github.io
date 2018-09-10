@@ -49,3 +49,53 @@
   border-radius: 2px;
   padding: 4px;
 }
+
+.slide-in {
+  animation: animateSearch 1s ease-out 1 forwards;
+}
+.slide-out {
+  animation: animateSearchOut 400ms ease-out 1 forwards;
+}
+
+.slide-down {
+  animation: animateSlideDown 500ms ease-in 1 forwards;
+}
+.slide-up {
+  animation: animateSlideUp 400ms ease-in 1 forwards;
+}
+@keyframes animateSearch {
+  from {
+    width: 0px;
+    opacity: 0;
+  }
+  to {
+    width: 150px;
+    opacity: 1;
+  }
+}
+@keyframes animateSearchOut {
+  from {
+    width: 150px;
+  }
+  to {
+    width: 0px;
+  }
+}
+@keyframes animateSlideDown {
+  from {
+    height: 0px;
+    opacity: 0;
+  }
+  to {
+    height: 150px;
+    opacity: 1;
+  }
+}
+@keyframes animateSlideUp {
+  from {
+    height: 150px;
+  }
+  to {
+    height: 0px;
+  }
+}

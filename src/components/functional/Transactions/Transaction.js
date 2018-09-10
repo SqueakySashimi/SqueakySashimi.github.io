@@ -7,6 +7,7 @@ import {
   posNegSwitch,
   currencyConv
 } from "../../layout/transactionLayout";
+
 class Transaction extends Component {
   state = {
     showTransactionInfo: false
@@ -45,15 +46,18 @@ class Transaction extends Component {
           </h6>
         </div>
         {showTransactionInfo ? (
-          <ul className="list-group list-group-flush card-body">
-            <li className="text-left list-group-item">
-              <strong className="text-info">Description:</strong> {description}
-            </li>
-            <li className="text-left list-group-item">
-              <strong className="text-info">Transferred on:</strong>{" "}
-              {niceDate(date)}
-            </li>
-          </ul>
+          <div className={showTransactionInfo ? "slide-down" : "slide-up"}>
+            <ul className="list-group list-group-flush card-body click-animation">
+              <li className="text-left list-group-item">
+                <strong className="text-info">Description:</strong>{" "}
+                {description}
+              </li>
+              <li className="text-left list-group-item">
+                <strong className="text-info">Transferred on:</strong>{" "}
+                {niceDate(date)}
+              </li>
+            </ul>
+          </div>
         ) : null}
       </div>
     );

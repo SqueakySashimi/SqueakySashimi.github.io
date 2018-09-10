@@ -40,8 +40,18 @@ class Transactions extends Component {
     const { showSearch } = this.state;
     return (
       <div>
-        <div className="d-flex justify-content-between mb-3">
-          <div>{showSearch ? <input /> : null}</div>
+        <div className="d-flex justify-content-end mb-3">
+          <div className="mr-2">
+            {showSearch ? (
+              <input
+                className={
+                  showSearch
+                    ? "form-control form-control-sm slide-in"
+                    : "form-control form-control-sm slide-out"
+                }
+              />
+            ) : null}
+          </div>
           <button
             onClick={this.onShowSearch}
             type="button"
