@@ -3,16 +3,50 @@ import Transaction from "./Transaction";
 import { getTransactions } from "../../../actions/actions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import ErrorMessage from "../../error handling/ErrorMessage";
 class Transactions extends Component {
+  state = {
+    showSearch: false
+  };
+
+  onShowSearch = e => {
+    this.setState({ showSearch: !this.state.showSearch });
+  };
   componentDidMount() {
     this.props.getTransactions();
   }
-  render() {
+  renderErrorTransactions() {
+    const errorResponse = this.props.error.response;
     const { transactions } = this.props;
+    if (errorResponse) {
+      return <ErrorMessage {...this.props} />;
+    } else {
+      return (
+        <React.Fragment>
+          {transactions.map((transaction, i) => (
+            <Transaction
+              {...this.props}
+              key={i}
+              i={i}
+              className="card card-body"
+            />
+          ))}
+        </React.Fragment>
+      );
+    }
+  }
+
+  render() {
+    const { showSearch } = this.state;
     return (
       <div>
-        <div className="d-flex justify-content-end">
-          <button type="button" className="btn btn-sm btn-info mb-4 ">
+        <div className="d-flex justify-content-between mb-3">
+          <div>{showSearch ? <input /> : null}</div>
+          <button
+            onClick={this.onShowSearch}
+            type="button"
+            className="btn btn-sm btn-info mb-4 "
+          >
             <i className="fas fa-sliders-h" /> Search
           </button>
         </div>
@@ -21,25 +55,20 @@ class Transactions extends Component {
             <span className="text-info">Transaction</span> <span>Overview</span>
           </h2>
         </div>
-        {transactions.map((transaction, i) => (
-          <Transaction
-            {...this.props}
-            key={i}
-            i={i}
-            className="card card-body"
-          />
-        ))}
+        <div className="card card-body">{this.renderErrorTransactions()}</div>
       </div>
     );
   }
 }
 Transactions.propTypes = {
-  //accounts: PropTypes.object.isRequired,
+  transactions: PropTypes.array.isRequired,
   getTransactions: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  transactions: state.transactions.transactions
+  transactions: state.transactions.transactions,
+  error: state.error.errors,
+  currency: state.transactions.currency
 });
 
 export default connect(

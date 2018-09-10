@@ -6,7 +6,8 @@ import App from "./App";
 const mapStateToProps = state => {
   return {
     accounts: state.accounts,
-    transactions: state.transactions
+    transactions: state.transactions,
+    error: state.error
   };
 };
 const mapDispatchToProps = dispatch => {

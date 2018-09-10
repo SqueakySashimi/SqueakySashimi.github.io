@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
+import {
+  fromToSwitch,
+  niceDate,
+  amountDebitSwitch,
+  posNegSwitch,
+  currencyConv
+} from "../../layout/transactionLayout";
 class Transaction extends Component {
   state = {
-    showTransactionInfo: false,
-    currency: "€"
+    showTransactionInfo: false
   };
 
   onShowClick = e => {
@@ -12,7 +17,8 @@ class Transaction extends Component {
   };
 
   render() {
-    const { currency, showTransactionInfo } = this.state;
+    //define all props for this component, for semantic clarity
+    const { showTransactionInfo } = this.state;
     const { i } = this.props;
     const {
       from,
@@ -22,41 +28,20 @@ class Transaction extends Component {
       date,
       debit
     } = this.props.transactions[i];
-    console.log(`(${i}) debit: ${debit} amount: ${amount}`);
-    let fromToSwitch;
-    let posNeg;
-    if (from === undefined && to !== undefined) {
-      fromToSwitch = to;
-      posNeg = "-";
-    } else if (from !== undefined && to !== undefined) {
-      console.log("Error, both from and to defined for this instance");
-    } else {
-      fromToSwitch = from;
-      posNeg = "+";
-    }
+    const { currency } = this.props;
 
-    let amountDebitSwitch;
-    if (amount === undefined && debit !== undefined) {
-      amountDebitSwitch = debit;
-    } else if (amount !== undefined && debit !== undefined) {
-      console.log("Error, both amount and debit defined for this instance");
-    } else {
-      amountDebitSwitch = amount;
-    }
-    let niceDate = new Date(date);
-    let options = {};
     return (
       <div
         onClick={this.onShowClick}
         style={{ cursor: "pointer" }}
-        className="card card-body"
+        className="card-body"
       >
         <div className="d-flex justify-content-between">
-          <h5>{fromToSwitch}</h5>
+          <h5>{fromToSwitch(from, to)}</h5>
           <h6>
-            {posNeg}
-            {currency}
-            {amountDebitSwitch}
+            {posNegSwitch(from, to)}
+            {currencyConv(currency)}
+            {amountDebitSwitch(amount, debit)}
           </h6>
         </div>
         {showTransactionInfo ? (
@@ -66,11 +51,7 @@ class Transaction extends Component {
             </li>
             <li className="text-left list-group-item">
               <strong className="text-info">Transferred on:</strong>{" "}
-              {niceDate.toLocaleDateString()}{" "}
-              {niceDate.toLocaleTimeString("nl-NL", {
-                hour: "2-digit",
-                minute: "2-digit"
-              })}
+              {niceDate(date)}
             </li>
           </ul>
         ) : null}
@@ -84,6 +65,7 @@ Transaction.propTypes = {
   description: PropTypes.string,
   amount: PropTypes.string,
   date: PropTypes.string,
-  to: PropTypes.string
+  to: PropTypes.string,
+  debit: PropTypes.string
 };
 export default Transaction;

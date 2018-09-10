@@ -3,12 +3,22 @@ import Account from "./Account";
 import { getAccounts } from "../../actions/actions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import store from "../../store";
 import uuid from "uuid";
+import ErrorMessage from "../error handling/ErrorMessage";
+
 class Accounts extends Component {
   componentDidMount() {
     this.props.getAccounts();
   }
+  renderError() {
+    const errorResponse = this.props.error.response;
+    if (errorResponse) {
+      return <ErrorMessage {...this.props} />;
+    } else {
+      return <Account {...this.props} id={uuid()} />;
+    }
+  }
+
   render() {
     return (
       <div>
@@ -17,9 +27,7 @@ class Accounts extends Component {
             Account Overview
           </h1>
           <ul className="list-group">
-            <li className="list-group-item">
-              <Account {...this.props} id={uuid()} />
-            </li>
+            <li className="list-group-item">{this.renderError()};</li>
           </ul>
         </div>
       </div>
@@ -27,12 +35,14 @@ class Accounts extends Component {
   }
 }
 Accounts.propTypes = {
-  accounts: PropTypes.object.isRequired,
+  error: PropTypes.object,
+  accounts: PropTypes.object,
   getAccounts: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  accounts: state.accounts.accounts
+  accounts: state.accounts.accounts,
+  error: state.error.errors
 });
 
 export default connect(
