@@ -39,7 +39,7 @@ class Transaction extends Component {
       >
         <div className="d-flex justify-content-between">
           <h5>{fromToSwitch(from, to)}</h5>
-          <h6>
+          <h6 className={from ? "text-success" : "text-danger"}>
             {posNegSwitch(from, to)}
             {currencyConv(currency)}
             {amountDebitSwitch(amount, debit)}

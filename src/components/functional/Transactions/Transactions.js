@@ -71,8 +71,9 @@ class Transactions extends Component {
   }
 }
 Transactions.propTypes = {
-  transactions: PropTypes.array.isRequired,
-  getTransactions: PropTypes.func.isRequired
+  transactions: PropTypes.array,
+  getTransactions: PropTypes.func.isRequired,
+  currency: PropTypes.string
 };
 
 const mapStateToProps = state => ({
