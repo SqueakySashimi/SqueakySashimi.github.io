@@ -13,12 +13,13 @@ class Transaction extends Component {
     showTransactionInfo: false
   };
 
+  //sets show transaction info true when false and vice versa
   onShowClick = e => {
     this.setState({ showTransactionInfo: !this.state.showTransactionInfo });
   };
 
   render() {
-    //define all props for this component, for semantic clarity
+    //defined all props for this component, for semantic clarity
     const { showTransactionInfo } = this.state;
     const { i } = this.props;
     const {
@@ -46,7 +47,7 @@ class Transaction extends Component {
           </h6>
         </div>
         {showTransactionInfo ? (
-          <div className={showTransactionInfo ? "slide-down" : "slide-up"}>
+          <div className={showTransactionInfo ? "slide-down" : ""}>
             <ul className="list-group list-group-flush card-body click-animation">
               <li className="text-left list-group-item">
                 <strong className="text-info">Description:</strong>{" "}

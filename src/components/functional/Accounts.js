@@ -3,7 +3,6 @@ import Account from "./Account";
 import { getAccounts } from "../../actions/actions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import uuid from "uuid";
 import ErrorMessage from "../error handling/ErrorMessage";
 
 class Accounts extends Component {
@@ -15,7 +14,7 @@ class Accounts extends Component {
     if (errorResponse) {
       return <ErrorMessage {...this.props} />;
     } else {
-      return <Account {...this.props} id={uuid()} />;
+      return <Account {...this.props} />;
     }
   }
 
@@ -42,7 +41,8 @@ Accounts.propTypes = {
 
 const mapStateToProps = state => ({
   accounts: state.accounts.accounts,
-  error: state.error.errors
+  error: state.error.errors,
+  currency: state.accounts.currency
 });
 
 export default connect(

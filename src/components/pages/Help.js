@@ -5,7 +5,7 @@ export default () => {
     <div className="text-styles card">
       <h1 className="card-header">Help</h1>
 
-      <p className="card-body text-left">
+      <div className="card-body text-left">
         <h3>Ik gebruik een Apple telefoon en kan de app niet bekijken</h3>
         <p>Jammer dan, had je maar een fatsoenlijke telefoon moeten kopen.</p>
         <h3>Ik krijg regelmatig een foutmelding met code 503, wat nu?</h3>
@@ -17,7 +17,7 @@ export default () => {
           Heb ik ook wel eens last van. Misschien had je beter lorem ipsum
           kunnen gebruiken..
         </p>
-      </p>
+      </div>
     </div>
   );
 };

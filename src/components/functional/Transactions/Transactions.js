@@ -1,14 +1,19 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import PropTypes from "prop-types";
+
+import ErrorMessage from "../../error handling/ErrorMessage";
 import Transaction from "./Transaction";
 import { getTransactions } from "../../../actions/actions";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import ErrorMessage from "../../error handling/ErrorMessage";
+
 class Transactions extends Component {
   componentDidMount() {
+    //load in the data
     this.props.getTransactions();
   }
-  renderErrorTransactions() {
+  //if GET request returns no errors load transactions
+  renderErrorOrTransactions() {
     const errorResponse = this.props.error.response;
     const { transactions } = this.props;
     if (errorResponse) {
@@ -37,7 +42,7 @@ class Transactions extends Component {
             <span className="text-info">Transaction</span> <span>Overview</span>
           </h2>
         </div>
-        <div className="card card-body">{this.renderErrorTransactions()}</div>
+        <div className="card card-body">{this.renderErrorOrTransactions()}</div>
       </div>
     );
   }

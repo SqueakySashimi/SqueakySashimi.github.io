@@ -1,7 +1,7 @@
-//reducer takes in the action and a copy of the current state
-import { GET_ACCOUNTS } from "../actions/types";
+import { GET_ACCOUNTS, GET_CURRENCY } from "../actions/types";
 const initialState = {
-  accounts: {}
+  accounts: {},
+  currency: {}
 };
 
 export default function(state = initialState, action) {
@@ -10,6 +10,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         accounts: action.payload
+      };
+    case GET_CURRENCY:
+      return {
+        ...state,
+        currency: action.payload
       };
     default:
       return state;

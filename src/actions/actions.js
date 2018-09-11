@@ -14,9 +14,12 @@ export const getAccounts = () => async dispatch => {
         type: GET_ACCOUNTS,
         payload: res.data.account
       });
+      dispatch({
+        type: GET_CURRENCY,
+        payload: res.data.currency
+      });
     })
     .catch(e => {
-      console.log(e);
       dispatch({ type: ERRORHANDLER, payload: e });
     });
 };
@@ -35,7 +38,6 @@ export const getTransactions = () => async dispatch => {
       });
     })
     .catch(e => {
-      console.log(e);
       dispatch({ type: ERRORHANDLER, payload: e });
     });
 };
