@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 import store from "./store";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { history } from "./store";
 
 import Header from "./components/layout/Header";
 import Accounts from "./components/functional/Accounts";
@@ -17,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router history={history}>
+        <Router>
           <div className="App">
             <Header branding="Mocha Bank" />
             <div className="container">
@@ -26,7 +25,7 @@ class App extends Component {
                 <Route exact path="/help" component={Help} />
                 <Route exact path="/balance" component={Balance} />
                 <Route path="/account/:id" component={Transactions} />
-                <Route function={NotFound} />
+                <Route component={NotFound} />
               </Switch>
             </div>
           </div>

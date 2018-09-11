@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-
+import { errorFunction } from "./errorHandling";
 export default class ErrorMessage extends Component {
   render() {
+    errorFunction(this.props.error);
     const error = this.props.error.response.status;
     return (
       <div className="card-body">
