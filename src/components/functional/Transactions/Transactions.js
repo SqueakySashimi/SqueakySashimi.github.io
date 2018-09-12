@@ -1,21 +1,19 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import PropTypes from "prop-types";
+
+import ErrorMessage from "../../error handling/ErrorMessage";
 import Transaction from "./Transaction";
 import { getTransactions } from "../../../actions/actions";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import ErrorMessage from "../../error handling/ErrorMessage";
-class Transactions extends Component {
-  state = {
-    showSearch: false
-  };
 
-  onShowSearch = e => {
-    this.setState({ showSearch: !this.state.showSearch });
-  };
+class Transactions extends Component {
   componentDidMount() {
+    //load in the data
     this.props.getTransactions();
   }
-  renderErrorTransactions() {
+  //if GET request returns no errors load transactions
+  renderErrorOrTransactions() {
     const errorResponse = this.props.error.response;
     const { transactions } = this.props;
     if (errorResponse) {
@@ -37,43 +35,21 @@ class Transactions extends Component {
   }
 
   render() {
-    const { showSearch } = this.state;
     return (
       <div>
-        <div className="d-flex justify-content-end mb-3">
-          <div className="mr-2">
-            {showSearch ? (
-              <input
-                className={
-                  showSearch
-                    ? "form-control form-control-sm slide-in"
-                    : "form-control form-control-sm slide-out"
-                }
-              />
-            ) : null}
-          </div>
-          <button
-            onClick={this.onShowSearch}
-            type="button"
-            className="btn btn-sm btn-info mb-4 "
-          >
-            <i className="fas fa-sliders-h" /> Search
-          </button>
-        </div>
         <div className=" card card-header">
           <h2>
             <span className="text-info">Transaction</span> <span>Overview</span>
           </h2>
         </div>
-        <div className="card card-body">{this.renderErrorTransactions()}</div>
+        <div className="card card-body">{this.renderErrorOrTransactions()}</div>
       </div>
     );
   }
 }
 Transactions.propTypes = {
   transactions: PropTypes.array,
-  getTransactions: PropTypes.func.isRequired,
-  currency: PropTypes.string
+  getTransactions: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
